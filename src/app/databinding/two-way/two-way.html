@@ -1,0 +1,146 @@
+<!-- SECTION D: TWO-WAY BINDING  [( )]  — 'Banana in a Box'      -->
+  <!-- [(ngModel)] is SYNTACTIC SUGAR for:                          -->
+  <!--   [ngModel]='prop' (Property Binding: component → input)     -->
+  <!--   (ngModelChange)='prop=$event' (Event Binding: input → comp)-->
+  <!-- Requires: FormsModule imported in the component's imports[] -->
+  <div class="container mt-4">
+    <h3>D — Two-Way Binding <code>[( )]</code></h3>
+    <p>Two-way binding allows you to synchronize data between the component and the template in both directions.
+    <p>When you use two-way binding with <code>[(ngModel)]</code>, any changes made to the input field will automatically update the corresponding property in the component, and any changes to that property in the component will automatically update the input field in the template.</p>
+
+    <div class="card text-white bg-danger mb-3">
+      <div class="card-header">Examples</div>
+      <div class="card-body">
+    <input type="text" [(ngModel)]="twoWName" class="form-control" placeholder="Enter text here..." />
+    <p>You entered: {{ twoWName }}</p>
+
+  <!-- ── Text input ─────────────────────────────────────────── -->
+  <!-- [(ngModel)] syncs twoWayName with the input field -->
+  <label>Full Name:
+    <input type="text" [(ngModel)]="twoWayName" class="form-control"   placeholder="Enter name" />
+  </label>
+  <!-- Live preview — updates as you type -->
+  <p>Name preview: <strong>{{ twoWayName }}</strong></p>
+
+  <!-- ── Email input ────────────────────────────────────────── -->
+  <label>Email:
+    <input type="email" [(ngModel)]="twoWayEmail" class="form-control" style="width:100%" placeholder="Enter email" />
+  </label>
+
+    <!-- ── Number input (range slider) ───────────────────────── -->
+  <label>Age: {{ twoWayAge }}
+    <input type="range" min="18" max="60"  [(ngModel)]="twoWayAge" />
+  </label>
+
+    <!-- ── Radio buttons — same ngModel property, different values ── -->
+  <fieldset>
+      <legend class="mt-4">Gender:</legend>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1"  [(ngModel)]="twoWayGender" value="male">
+        <label class="form-check-label" for="optionsRadios1">Male</label>
+      </div>
+       <div class="form-check">
+          <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2"  [(ngModel)]="twoWayGender" value="female">
+           <label class="form-check-label" for="optionsRadios2">Female</label>
+       </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios3"  [(ngModel)]="twoWayGender" value="other">
+           <label class="form-check-label" for="optionsRadios3">Other</label>
+        </div>
+
+  </fieldset>
+  <p>Selected gender: {{ twoWayGender }}</p>
+
+  <!-- ── Checkbox ───────────────────────────────────────────── -->
+  <label>
+    <input type="checkbox" [(ngModel)]="twoWaySubscribed" />
+    Subscribe to newsletter
+  </label>
+  <p>Subscribed: {{ twoWaySubscribed }}</p>
+
+
+    <input type="range" min="0" max="100" [(ngModel)]="rangeValue" class="form-range">
+    <p>Range Value: {{ rangeValue }}</p>
+
+    <select [(ngModel)]="twoWayLanguage" class="form-select">
+      <option value="" disabled>Select an option</option>
+      @for(p of programmingLanguages; track p) {
+        <option [value]="p">{{ p }}</option>
+      }
+    </select>
+    <p>Selected Language: {{ twoWayLanguage }}</p>
+
+      <!-- ── Color input ─────────────────────────────────────────── -->
+  <label>Favorite Color:
+    <input type="color" [(ngModel)]="twoWayColor" />
+  </label>
+  <div [style.background-color]="twoWayColor" [style.color]="'white'" class="color-swatch">
+    Color: {{ twoWayColor }}
+  </div>
+
+    <!-- ── Reset button — programmatic update via component ─────── -->
+  <button class="btn btn-primary" (click)="resetForm()">Reset All Fields</button>
+
+  <!-- ── Live profile summary ──────────────────────────────── -->
+  <div class="profile-summary">
+    <strong>Live Profile:</strong>
+    <p>{{ profileSummary }}</p>
+  </div>
+
+
+
+<table class="table table-dark table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAME</th>
+      <th scope="col">DEPARTMENT</th>
+      <th scope="col">VIEW</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of user; track u.id){
+    <tr [class.table-active]="selectedId === u.id">
+      <th scope="row" >{{ u.id }}</th>
+      <td>{{ u.name }}</td>
+      <td>{{ u.department }}</td>
+      <td><!-- Button trigger modal -->
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(u)">
+          View Details
+        </button>
+      </td>
+       </tr>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">EMPLOYEE DETAILS</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+
+                  <p>ID:</p><input type="text" [(ngModel)]="selectedId" class="form-control" readonly />
+                  <p>Name:</p><input type="text" [(ngModel)]="selectedName" class="form-control" readonly />
+                  <p>Department:</p><input type="text" [(ngModel)]="selectedDepartment" class="form-control" readonly />
+                  <p>Position:</p><input type="text" [(ngModel)]="selectedPosition" class="form-control" readonly />
+                  <p>Role:</p><input type="text" [(ngModel)]="selectedRole" class="form-control" readonly />
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ }
+
+    </tbody>
+    </table>
+
+
+    </div>
+  </div>
+</div>

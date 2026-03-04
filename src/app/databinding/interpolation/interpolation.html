@@ -1,0 +1,104 @@
+<div class="container mt-3">
+    <h3>String Interpolation</h3>
+    <p class="lead">Angular string interpolation is a one-way data binding technique that allows you to display dynamic data from your component's TypeScript code within your HTML template. It uses the double curly braces syntax <code>{{ text }}</code>.</p>
+    
+    
+    <p class="lead">In Angular, string interpolation (also known as text interpolation) is a one-way data-binding technique used to display dynamic data from your TypeScript component in your HTML template.</p>
+    
+    <ol>
+      <li>Basic Characteristics</li>
+      <p>You embed expressions within double curly braces {{curly}}. Angular evaluates the expression and replaces it with the resulting string in the view. </p>
+      <ul>
+        <li>
+          Component Property: To display a variable called userName, use {{ common }}.</li>
+        <li>Arithmetic: You can perform simple math like {{ 1 + 1 }}.</li>
+        <li>Methods: You can call component methods, such as {{ methods }}.</li>
+        <li>String Methods: Use JavaScript string functions like {{ title.toUpperCase() }}.</li>
+    
+      </ul>
+      <li>Working with Objects</li>
+      <ol type="a">
+        <p>You can access object properties directly within the curly braces.</p>
+        <li>
+          Dot Notation: Use {{ dotnot }} to display a property.
+        </li>
+        <li>
+          Safe Navigation Operator (?.): Use this to guard against null or undefined values. For example, {{ dotnot2 }} will safely return an empty string if user or profile is missing, instead of throwing an error.
+        </li>
+        <li>
+          JSON Pipe: To debug and see the entire object structure on the page, use the JSON Pipe: {{ jpipe }}.
+        </li>
+      </ol>
+    </ol>
+    
+    <h3>Rules and Constraints</h3>
+    <ul>
+        <li>The expression must return a value (string, number, boolean, object.property)</li>
+        <li>You CAN call pure methods and use pipes</li>
+        <li>You CANNOT use assignments (=), increment (++), or new keyword</li>
+        <li>You CANNOT access global objects like window or document directly</li>
+        <li>Expressions are re-evaluated every change detection cycle</li>
+    </ul>
+      <!-- SECTION A: STRING INTERPOLATION  {{ }}                     -->
+      <!-- Angular evaluates the expression inside {{ }} and inserts   -->
+      <!-- the result as a TEXT NODE in the DOM. It cannot be used for -->
+      <!-- binding to HTML attributes or DOM properties.               -->
+    
+    <div>
+    <div class="card text-white bg-info mb-3" >
+      <div class="card-header">Interpolation</div>
+      <div class="card-body">
+        <h4 class="card-title">Examples</h4>
+        <p class="card-text">Here is an example showing how to access properties from objects and elements from arrays using string interpolation in an Angular Component.</p>
+    
+          <h2>A — String Interpolation <code>{{curly }}</code></h2>
+          <!-- Direct property access -->
+          <p>Title: <strong>{{ title }}</strong></p>
+          <!-- Expression inside interpolation -->
+          <p>Student: {{ studentName }} | Course: {{ courseCode }}</p>
+          <!-- Arithmetic expression directly in template -->
+          <p>Next year: {{ currentYear + 1 }}</p>
+          <!-- Method call — returns a string -->
+          <p>{{ getWelcomeMessage() }}</p>
+          <!-- Ternary expression -->
+          <p>Status: {{ isActive ? 'ACTIVE' : 'INACTIVE' }}</p>
+          <h2>B — Interpolating Objects</h2>
+          <!-- Accessing object properties -->
+          <p>User Name: {{ user.name }}</p>
+          <p>User Position: {{ user.position }}</p>
+          <p>User Department: {{ user.department }}</p>
+          <p>User Role: {{ user.details?.role }}</p>
+          <H2>C - Iterating with Interpolation</H2>
+          <ul>
+              @for (skill of skills; track skill) {
+              <li>{{ skill }}</li>
+      }
+          </ul>
+    <h2>D — Safe Navigation Operator (?.)</h2>
+          <!-- Using safe navigation to prevent errors if user or profile is null -->
+          <p>User Name: {{ user.name }}</p>
+          <p>User Role: {{ user.details?.role }}</p>
+          <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+            <option selected>Open this select menu</option>
+          @for (role of roles; track role) {
+            <option [value]="role">{{ role }}</option>
+          }
+        </select>
+          <!-- Array of Objects-->
+          <h2>D — Interpolating Arrays of Objects</h2>
+          <select [(ngModel)]="selectedCountryId" class="form-select form-select-lg mb-3" aria-label="Large select example">
+      <option value="" disabled>Select a country</option>
+      @for (c of countries; track c.id) {
+        <option [value]="c.id">{{ c.name }}</option>
+      }
+    </select>
+    
+    <p>Selected ID: {{ selectedCountryId }}</p>
+    
+          <h2>E — Debugging with JSON Pipe</h2>
+          <!-- Displaying the entire user object as a JSON string -->
+          <pre>{{ user | json }}</pre>
+        </div>
+      </div>
+    </div>
+    

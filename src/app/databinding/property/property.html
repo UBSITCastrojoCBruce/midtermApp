@@ -1,0 +1,52 @@
+<!-- SECTION B: PROPERTY BINDING  [ ]                           -->
+  <!-- Square brackets tell Angular: evaluate the right-hand side  -->
+  <!-- as a TypeScript expression and assign its RESULT to the DOM -->
+  <!-- property named inside the brackets.                         -->
+  <!-- KEY DIFFERENCE FROM ATTR BINDING: you're setting JS props,  -->
+  <!-- not HTML attributes. img.src is a JS property; src= is attr. -->
+
+  <div class="mt-3">
+    <h3>Property Binding</h3>
+    <p>Property binding in Angular allows you to bind a component property to an element property. It is a one-way binding from the component to the view.</p>
+    <p>Syntax: <code>[property]="expression"</code></p>
+    <p>In this syntax, <code>property</code> is the name of the DOM property you want to bind to, and <code>expression</code> is a JavaScript expression that evaluates to the value you want to assign to that property.</p>
+    <p>Property binding is used to set the value of an element property, which can affect the behavior or appearance of the element. For example, you can bind to the <code>disabled</code> property of a button to enable or disable it based on a condition in your component.</p>
+    <div class="card text-white bg-success mb-3" >
+      <div class="card-header">Property Binding</div>
+      <div class="card-body">
+        <h4 class="card-title">Examples</h4>
+        <pre><code>&lt;img [src]="imageSource" [alt]="imageAlt"&gt;</code></pre>
+        <p>In this example, the <code>src</code> and <code>alt</code> properties of the <code>&lt;img&gt;</code> element are bound to properties in the component.</p>
+    
+    
+          <h2>B — Property Binding <code>[ ]</code></h2>
+    
+        <!-- Bind to the disabled DOM property -->
+        <!-- Without []: disabled='isButtonDisabled' always disables the button -->
+        <!-- because any non-empty attribute string is truthy in HTML -->
+    
+          <button type="button" class="btn btn-primary" [disabled]="isButtonDisabled" (click)="onButtonClick()">
+    
+          Click Me (disabled until clicked once via event binding below)
+    </button>
+    
+        <!-- Bind to img.src and img.alt DOM properties -->
+         <p>Bind to img.src and img.alt DOM properties</p>
+        <img [src]="imageSource" [alt]="imageAlt" [width]=    "imageWidth" />
+        <!-- Bind to href and textContent via property binding -->
+         <p>Bind to href and textContent via property binding</p>
+         <a [href]="linkUrl" target="_blank">{{ linkUrl }}</a><br>
+        <a [href]="linkUrl" class="btn btn-link" [name]="linkUrl" target="_blank">Visit UB Site</a>
+    
+        <!-- Bind to the placeholder property of an input -->
+    
+    <br> <label class="form-label" for="inputDefault">Type your name here</label>
+      <input type="text" class="form-control " [placeholder]="inputPlaceholder" id="inputDefault">
+    
+    </div>
+    </div>
+    
+    
+    
+    
+    </div>
