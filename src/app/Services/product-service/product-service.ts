@@ -1,18 +1,11 @@
-import { Component } from '@angular/core';
-import { Product } from '../models/product.interface';
-import { CommonModule } from '@angular/common';
+import { Injectable } from '@angular/core'; 
+import { Product } from '../../models/product.interface';
 
-@Component({
-  selector: 'app-products',
-  imports: [CommonModule],
-  templateUrl: './products.html',
-  styleUrl: './products.css',
+@Injectable({
+  providedIn: 'root',
 })
-export class Products {
 
-  showModal: boolean = false;
-
-  selectedProduct: Product | null = null;
+export class ProductService {
 
   products: Product[] = [
     {id:1,name:'Laptop',category:'Electronics',price:60000,stock:10,status:'Available',description:'High performance laptop',brand:'Dell',rating:4.5,warranty:'1 Year'},
@@ -27,13 +20,24 @@ export class Products {
     {id:10,name:'Smartwatch',category:'Wearable',price:8100,stock:0,status:'Out of Stock',description:'Fitness smartwatch',brand:'Huawei',rating:4.2,warranty:'1 Year'}
   ];
 
-  viewProductDetails(product: Product){
-    this.selectedProduct = product;
-    this.showModal = true;
+
+  getProducts(): Product[] {
+    return this.products;
   }
 
-  closeModal(){
-    this.showModal = false;
+  getProductById(id: number): Product | undefined {
+    return this.products.find(p => p.id == id);
   }
 
+  updateProduct(updated: Product): void{
+    const idx = this.products.findIndex(p => p.id === updated.id);
+    if (idx !== -1) this.products[idx] = {...updated};
+  }
+
+  isAuthenticated(): boolean {
+    return !!sessionStorage.getItem('auth_token');
+  }
+
+  login(): void { sessionStorage.setItem('auth_token', 'demo-token');}
+  logout(): void { sessionStorage.removeItem('auth_token');}
 }
